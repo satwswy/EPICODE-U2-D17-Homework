@@ -22,5 +22,7 @@ addMovieForm.addEventListener("submit", (e) => {
       category: categoryValue.value,
       imageUrl: imageUrlValue.value
     }),
-  });
+    
+  })
+  .then(res => res.json())
 });
