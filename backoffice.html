@@ -40,7 +40,9 @@
               <input type="text" class="form-control" id="imageUrl-value" />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-primary">Edit</button>
+            <button type="button" class="btn btn-primary" onclick="editMovie()">
+              Edit
+            </button>
             <button type="button" class="btn btn-primary">Delete</button>
           </form>
         </div>
@@ -78,19 +80,53 @@
           });
           const res = await getGenresMovies.json();
           console.log(res);
-          const foundMovie = res.filter((currentMovie)=>{
-            return currentMovie._id === getId
-            
-          })[0]
-          console.log(foundMovie)
-          let name = document.getElementById('name-value')
-          let description = document.getElementById('description-value')
-          let category = document.getElementById('category-value')
-          let imageUrl = document.getElementById('imageUrl-value')
-          name.value = foundMovie.name
-          description.value = foundMovie.description
-          category.value = foundMovie.category
-          imageUrl.value = foundMovie.imageUrl
+          const foundMovie = res.filter((currentMovie) => {
+            return currentMovie._id === getId;
+          })[0];
+          console.log(foundMovie);
+          let name = document.getElementById("name-value");
+          let description = document.getElementById("description-value");
+          let category = document.getElementById("category-value");
+          let imageUrl = document.getElementById("imageUrl-value");
+          name.value = foundMovie.name;
+          description.value = foundMovie.description;
+          category.value = foundMovie.category;
+          imageUrl.value = foundMovie.imageUrl;
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      const editMovie = async () => {
+        try {
+          const myEvent = {
+            name: document.getElementById("name-value").value,
+            description: document.getElementById("description-value").value,
+            category: document.getElementById("category-value").value,
+            imageUrl: document.getElementById("imageUrl-value").value,
+          };
+          //   const name = document.getElementById("name-value").value;
+          //   const description = document.getElementById("description-value").value;
+          //   const category = document.getElementById("category-value").value;
+          //   const imageUrl = document.getElementById("imageUrl-value").value;
+          const getMovieEdit = await fetch(url + getId, {
+            method: "PUT",
+            body: JSON.stringify(myEvent),
+            "Content-type": "application/json",
+
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE2MDUyZjMzODEzZjAwMTUwZGRkZmMiLCJpYXQiOjE2NTUyNzk1ODksImV4cCI6MTY1NjQ4OTE4OX0.RBSx7SOcxql-n0tNI6nXsZdTp_yGMJdDDo8A7MLMZEk",
+            },
+            // body: JSON.stringify({
+            //   name: name,
+            //   description: description,
+            //   category: category,
+            //   imageUrl: imageUrl,
+            // }),
+          });
+          const res = await getMovieEdit.json();
+          console.log(res);
         } catch (err) {
           console.log(err);
         }
