@@ -43,7 +43,7 @@
             <button type="button" class="btn btn-primary" onclick="editMovie()">
               Edit
             </button>
-            <button type="button" class="btn btn-primary">Delete</button>
+            <button type="button" class="btn btn-primary" onclick="deleteMovie()">Delete</button>
           </form>
         </div>
       </div>
@@ -118,6 +118,22 @@
           });
           const res = await getMovieEdit.json();
           console.log(res);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      const deleteMovie = async () => {
+        try {
+          const currentMovie = await fetch(url + getId, {
+            method: "DELETE",
+            headers: {
+              "Content-type": "application/json",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE2MDUyZjMzODEzZjAwMTUwZGRkZmMiLCJpYXQiOjE2NTUyNzk1ODksImV4cCI6MTY1NjQ4OTE4OX0.RBSx7SOcxql-n0tNI6nXsZdTp_yGMJdDDo8A7MLMZEk",
+            },
+          });
+          const res = await currentMovie.json();
         } catch (err) {
           console.log(err);
         }
