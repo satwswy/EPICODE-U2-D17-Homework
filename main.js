@@ -1,10 +1,9 @@
+// Fetch all categories
+// Using a loop fetch by category using displayData
 const moviesList = document.querySelector(".movies-list");
 const addMovieForm = document.querySelector(".add-movie-form");
-const nameValue = document.getElementById("name-value");
-const descriptionValue = document.getElementById("description-value");
-const categoryValue = document.getElementById("category-value");
-const imageUrlValue = document.getElementById("imageUrl-value");
-let output = "";
+
+let grid = document.getElementById("grid");
 const url = "https://striveschool-api.herokuapp.com/api/movies/";
 
 const displayData = (genre) => {
@@ -17,7 +16,8 @@ const displayData = (genre) => {
     .then((res) => res.json())
     .then((data) => {
       data.forEach((movie) => {
-        output += `
+        const element = document.createElement("div");
+        element.innerHTML = `
         <div class="card" >
         <img src="${movie.imageUrl}" class="card-img-top" alt="${movie.name}">
         <div class="card-body">
@@ -28,26 +28,54 @@ const displayData = (genre) => {
         </div>
       </div>
             `;
+            grid.appendChild(element);
+            console.log(element)
       });
+
+     
     });
-  moviesList.innerHTML = output;
+    
 };
+const getCategories = async () => {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE2MDUyZjMzODEzZjAwMTUwZGRkZmMiLCJpYXQiOjE2NTUyNzk1ODksImV4cCI6MTY1NjQ4OTE4OX0.RBSx7SOcxql-n0tNI6nXsZdTp_yGMJdDDo8A7MLMZEk",
+      },
+    });
+    const arrayOfCategories = await res.json();
+    console.log(arrayOfCategories);
+    arrayOfCategories.forEach((category) => {
+      displayData(category);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 addMovieForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  const name = document.getElementById("name-value").value;
+  const description = document.getElementById("description-value").value;
+  const category = document.getElementById("category-value").value;
+  const imageUrl = document.getElementById("imageUrl-value").value;
   fetch(url, {
     method: "POST",
     headers: {
-      Accept: "application/json, text/plain, */*",
+      "Content-type": "application/json",
       Authorization:
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE2MDUyZjMzODEzZjAwMTUwZGRkZmMiLCJpYXQiOjE2NTUyNzk1ODksImV4cCI6MTY1NjQ4OTE4OX0.RBSx7SOcxql-n0tNI6nXsZdTp_yGMJdDDo8A7MLMZEk",
     },
     body: JSON.stringify({
-      name: nameValue.value,
-      description: descriptionValue.value,
-      category: categoryValue.value,
-      imageUrl: imageUrlValue.value,
+      name: name,
+      description: description,
+      category: category,
+      imageUrl: imageUrl,
     }),
   })
     .then((res) => res.json())
     .then((data) => {});
 });
+window.onload = getCategories();
+window.onload = displayData();

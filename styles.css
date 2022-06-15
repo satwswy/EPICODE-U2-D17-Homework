@@ -70,3 +70,10 @@ footer .paragraph-div div {
      opacity: 1;
         }
 }
+.card img {
+    width: 300px !important;
+    height: 300px !important;
+}
+.card {
+    color: black;
+}
