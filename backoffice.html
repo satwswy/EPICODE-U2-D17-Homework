@@ -105,26 +105,16 @@
             category: document.getElementById("category-value").value,
             imageUrl: document.getElementById("imageUrl-value").value,
           };
-          //   const name = document.getElementById("name-value").value;
-          //   const description = document.getElementById("description-value").value;
-          //   const category = document.getElementById("category-value").value;
-          //   const imageUrl = document.getElementById("imageUrl-value").value;
+
           const getMovieEdit = await fetch(url + getId, {
             method: "PUT",
             body: JSON.stringify(myEvent),
-            
 
             headers: {
-                "Content-type": "application/json",
+              "Content-type": "application/json",
               Authorization:
                 "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE2MDUyZjMzODEzZjAwMTUwZGRkZmMiLCJpYXQiOjE2NTUyNzk1ODksImV4cCI6MTY1NjQ4OTE4OX0.RBSx7SOcxql-n0tNI6nXsZdTp_yGMJdDDo8A7MLMZEk",
             },
-            // body: JSON.stringify({
-            //   name: name,
-            //   description: description,
-            //   category: category,
-            //   imageUrl: imageUrl,
-            // }),
           });
           const res = await getMovieEdit.json();
           console.log(res);
