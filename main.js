@@ -24,7 +24,7 @@ const displayData = (genre) => {
           <h5 class="card-title">${movie.name}</h5>
           <h5 class="card-title">${movie.category}</h5>
           <p class="card-text">${movie.description}</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <a href="/backoffice.html" class="btn btn-primary">backoffice</a>
         </div>
       </div>
             `;
