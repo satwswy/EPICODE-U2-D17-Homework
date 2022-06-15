@@ -24,12 +24,12 @@ const displayData = (genre) => {
           <h5 class="card-title">${movie.name}</h5>
           <h5 class="card-title">${movie.category}</h5>
           <p class="card-text">${movie.description}</p>
-          <a href="/backoffice.html" class="btn btn-primary">backoffice</a>
+          <a href="/backoffice.html?_id=${movie._id}&category=${movie.category}" class="btn btn-primary">backoffice</a>
         </div>
       </div>
             `;
             grid.appendChild(element);
-            console.log(element)
+           
       });
 
      
